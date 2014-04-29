@@ -53,7 +53,7 @@ public class ColorDecomposer {
         return decomposedImage;
     }
 
-    private int getIntColorFromRGB(int red, int green, int blue) {
+    public int getIntColorFromRGB(int red, int green, int blue) {
         return new Color(red, green, blue).getRGB();
     }
 
