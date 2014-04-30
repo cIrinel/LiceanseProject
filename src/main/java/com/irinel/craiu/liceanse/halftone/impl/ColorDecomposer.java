@@ -23,7 +23,7 @@ public class ColorDecomposer {
     public static final int BLUE_CHANNEL = 0;
 
     //TODO: rename and refactor this method. its too big
-    public DecomposedCMYImage decomposeImageToCNYColors(BufferedImage bufferedImage) {
+    public DecomposedCMYImage getDecomposedCMYImages(BufferedImage bufferedImage) {
         LOG.info("Attempting to decompose input image into \"colorscale\"");
         checkNotNull(bufferedImage, "Input image buffer is null");
 

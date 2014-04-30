@@ -24,7 +24,7 @@ public class ColorDecomposerTest {
     public void setUp() throws IOException {
         colorDecomposer = new ColorDecomposer();
         bufferedImage = ImageIO.read(Resources.getResource(IMAGE_FILE_NAME));
-        decomposedImage = colorDecomposer.decomposeImageToCNYColors(bufferedImage);
+        decomposedImage = colorDecomposer.getDecomposedCMYImages(bufferedImage);
     }
 
 
