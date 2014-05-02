@@ -25,7 +25,7 @@ public class FloydSteinbergDitherer implements ImageDitherer {
             for (int j = 0; j < height; j++) {
                 int oldPixel = image.getRGB(i, j);
                 int newPixel = getRgbIntFromColor(getRoundedColorValue(oldPixel, colorChannel), colorChannel);
-                ditheredImage.setRGB(i, j, newPixel);
+
                 int quantizedError = getQuantizationError(oldPixel, newPixel, colorChannel);
 
                 if (i + 1 < width - 1)
@@ -40,6 +40,8 @@ public class FloydSteinbergDitherer implements ImageDitherer {
                 if (i + 1 < width - 1 && j + 1 < height - 1)
                     image.setRGB(i + 1, j + 1,
                             getDitheredPixel(image.getRGB(i + 1, j + 1), quantizedError, (double) 1 / 16, colorChannel));
+
+                ditheredImage.setRGB(i, j, newPixel);
             }
         }
 
@@ -75,8 +77,10 @@ public class FloydSteinbergDitherer implements ImageDitherer {
     }
 
     public int getDitheredPixel(int pixel, int error, double modifier, int colorChannel) {
-        int ditheredColor = getChanellColorFromInt(pixel, colorChannel)
-                + (int) (error * modifier);
+        int ditheredColor = getChanellColorFromInt(pixel, colorChannel) + (int) (error * modifier);
+        if (ditheredColor > 255) ditheredColor = 255;
+        if (ditheredColor < 0) ditheredColor = 0;
+
         return getRgbIntFromColor(ditheredColor, colorChannel);
     }
 

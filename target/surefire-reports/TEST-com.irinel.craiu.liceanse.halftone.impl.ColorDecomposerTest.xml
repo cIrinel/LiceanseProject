@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="6.597" errors="0" skipped="0" tests="8" name="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest">
+<testsuite failures="0" time="7.231" errors="0" skipped="0" tests="9" name="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -59,12 +59,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="1.089" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToRedScale"/>
-  <testcase time="0.785" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToGreenScale"/>
-  <testcase time="0.777" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToBlueScale"/>
-  <testcase time="0.899" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsYellowColorScale"/>
-  <testcase time="0.888" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsMangentaColorScale"/>
-  <testcase time="0.791" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsCyanColorScale"/>
-  <testcase time="0.674" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="testGetRgbColorFromInt"/>
-  <testcase time="0.652" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="testGetWhiteIntColorFromInt"/>
+  <testcase time="1.066" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToRedScale"/>
+  <testcase time="0.805" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToGreenScale"/>
+  <testcase time="0.765" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageDecomposesToBlueScale"/>
+  <testcase time="0.882" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsYellowColorScale"/>
+  <testcase time="0.893" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsMangentaColorScale"/>
+  <testcase time="0.776" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="imageIsCyanColorScale"/>
+  <testcase time="0.69" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="testGetRgbColorFromInt"/>
+  <testcase time="0.657" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="testGetWhiteIntColorFromInt"/>
+  <testcase time="0.659" classname="com.irinel.craiu.liceanse.halftone.impl.ColorDecomposerTest" name="testImageReasembles"/>
 </testsuite>

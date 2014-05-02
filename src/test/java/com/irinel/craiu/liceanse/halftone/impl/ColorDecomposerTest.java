@@ -110,8 +110,10 @@ public class ColorDecomposerTest {
         assertEquals(120, colorDecomposer.getRGBColorFromInt(whiteColor).getRed());
         assertEquals(150, colorDecomposer.getRGBColorFromInt(whiteColor).getGreen());
     }
-
+     @Test
     public void testImageReasembles(){
         //TODO: write me
+
+
     }
 }

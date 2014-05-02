@@ -51,6 +51,7 @@ public class FloydSteinbergDithererTest {
             }
         }
 
+
         assertEquals(isImageBinary, true);
     }
 
@@ -71,7 +72,6 @@ public class FloydSteinbergDithererTest {
                 }
             }
         }
-         ImageIO.write(binaryImage , "jpg" , new File("test.jpg"));
 
         assertEquals(isImageBinary, true);
     }
