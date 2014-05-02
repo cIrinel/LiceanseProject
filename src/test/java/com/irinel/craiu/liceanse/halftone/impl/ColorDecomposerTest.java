@@ -2,6 +2,7 @@ package com.irinel.craiu.liceanse.halftone.impl;
 
 import com.google.common.io.Resources;
 import com.irinel.craiu.liceanse.imageutils.DecomposedCMYImage;
+import com.irinel.craiu.liceanse.imageutils.RgbColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import static org.junit.Assert.*;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -90,5 +92,22 @@ public class ColorDecomposerTest {
             }
         }
         assertEquals(isImagecyanScale, true);
+    }
+
+    @Test
+    public void testGetRgbColorFromInt() {
+        Color color = new Color(100, 121, 232);
+        RgbColor rgbColor = colorDecomposer.getRGBColorFromInt(color.getRGB());
+        assertEquals(rgbColor.getBlue(), 232);
+        assertEquals(rgbColor.getRed(), 100);
+        assertEquals(rgbColor.getGreen(), 121);
+    }
+
+    @Test
+    public void testGetWhiteIntColorFromInt() {
+        int whiteColor = colorDecomposer.getIntColorFromRGB(120, 150, 25);
+        assertEquals(25, colorDecomposer.getRGBColorFromInt(whiteColor).getBlue());
+        assertEquals(120, colorDecomposer.getRGBColorFromInt(whiteColor).getRed());
+        assertEquals(150, colorDecomposer.getRGBColorFromInt(whiteColor).getGreen());
     }
 }

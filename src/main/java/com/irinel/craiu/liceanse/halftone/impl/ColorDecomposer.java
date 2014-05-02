@@ -2,6 +2,7 @@ package com.irinel.craiu.liceanse.halftone.impl;
 
 
 import com.irinel.craiu.liceanse.imageutils.DecomposedCMYImage;
+import com.irinel.craiu.liceanse.imageutils.RgbColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +56,16 @@ public class ColorDecomposer {
 
     public int getIntColorFromRGB(int red, int green, int blue) {
         return new Color(red, green, blue).getRGB();
+    }
+
+    public RgbColor getRGBColorFromInt(int pixelColor) {
+        RgbColor rgbColor = new RgbColor();
+        rgbColor.setRed(pixelColor >> RED_CHANNEL & 0xff);
+        rgbColor.setBlue((pixelColor >> BLUE_CHANNEL) & 0xff);
+        rgbColor.setGreen((pixelColor >> GREEN_CHANNEL) & 0xff);
+
+        return rgbColor;
+
     }
 
 
