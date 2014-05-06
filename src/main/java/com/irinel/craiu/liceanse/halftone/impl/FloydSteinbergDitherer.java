@@ -1,6 +1,5 @@
 package com.irinel.craiu.liceanse.halftone.impl;
 
-import com.irinel.craiu.liceanse.halftone.ImageDitherer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import java.awt.image.BufferedImage;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
-public class FloydSteinbergDitherer implements ImageDitherer {
+public class FloydSteinbergDitherer{
 
     private static final Logger LOG = LoggerFactory.getLogger(FloydSteinbergDitherer.class);
 
@@ -21,7 +20,7 @@ public class FloydSteinbergDitherer implements ImageDitherer {
         int height = image.getHeight();
         BufferedImage ditheredImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
 
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i   < width; i++) {
             for (int j = 0; j < height; j++) {
                 int oldPixel = image.getRGB(i, j);
                 int newPixel = getRgbIntFromColor(getRoundedColorValue(oldPixel, colorChannel), colorChannel);

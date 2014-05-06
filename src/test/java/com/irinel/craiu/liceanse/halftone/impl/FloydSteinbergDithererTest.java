@@ -7,8 +7,10 @@ import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -48,6 +50,9 @@ public class FloydSteinbergDithererTest {
                                 ((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
+            }
+            if(isImageBinary){
+                ImageIO.write(binaryImage , "jpg" , new File(""));
             }
         }
 
@@ -122,6 +127,32 @@ public class FloydSteinbergDithererTest {
         Assert.assertEquals(red, 129);
         Assert.assertEquals(green, 122);
         Assert.assertEquals(blue, 128);
+
+    }
+
+    @Test
+    public void testRemakeImage() throws IOException {
+        //this is a visual test.
+        BufferedImage cyanHalftone = ImageIO.read(Resources.getResource("halftonedImages/cyanHalftoned.jpg"));
+        BufferedImage yellowHalftone = ImageIO.read(Resources.getResource("halftonedImages/yellowHalftoned.jpg"));
+        BufferedImage mangentaHalftone = ImageIO.read(Resources.getResource("halftonedImages/mangentaHalftoned.jpg"));
+
+        int width = cyanHalftone.getWidth();
+        int height = cyanHalftone.getHeight();
+        BufferedImage resultingImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
+
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                resultingImage.setRGB(i, j, colorDecomposer.getIntColorFromRGB(
+                        255 - ditherer.getChanellColorFromInt(cyanHalftone.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
+                        255 - ditherer.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
+                        255 - ditherer.getChanellColorFromInt(yellowHalftone.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
+                ));
+            }
+        }
+
+        ImageIO.write(resultingImage, "jpg", new File("ditheredImage.jpg"));
 
     }
 }
