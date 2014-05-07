@@ -2,18 +2,13 @@ package com.irinel.craiu.liceanse.halftone.impl;
 
 
 import com.irinel.craiu.liceanse.imageutils.DecomposedCMYImage;
+import com.irinel.craiu.liceanse.imageutils.RgbColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.imageio.ImageIO;
-
 import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ColorDecomposer {
     private static final Logger LOG = LoggerFactory.getLogger(ColorDecomposer.class);
@@ -23,7 +18,7 @@ public class ColorDecomposer {
     public static final int BLUE_CHANNEL = 0;
 
     //TODO: rename and refactor this method. its too big
-    public DecomposedCMYImage decomposeImageToCNYColors(BufferedImage bufferedImage) {
+    public DecomposedCMYImage getDecomposedCMYImages(BufferedImage bufferedImage) {
         LOG.info("Attempting to decompose input image into \"colorscale\"");
         checkNotNull(bufferedImage, "Input image buffer is null");
 
@@ -55,6 +50,16 @@ public class ColorDecomposer {
 
     public int getIntColorFromRGB(int red, int green, int blue) {
         return new Color(red, green, blue).getRGB();
+    }
+
+    public RgbColor getRGBColorFromInt(int pixelColor) {
+        RgbColor rgbColor = new RgbColor();
+        rgbColor.setRed(pixelColor >> RED_CHANNEL & 0xff);
+        rgbColor.setBlue((pixelColor >> BLUE_CHANNEL) & 0xff);
+        rgbColor.setGreen((pixelColor >> GREEN_CHANNEL) & 0xff);
+
+        return rgbColor;
+
     }
 
 
