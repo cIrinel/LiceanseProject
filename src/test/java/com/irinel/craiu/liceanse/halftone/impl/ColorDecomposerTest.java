@@ -80,8 +80,7 @@ public class ColorDecomposerTest {
                 }
             }
         }
-        ImageIO.write(mangentaScaleImage , "jpg" , new File("textMangentaScale.jpg"));
-        assertEquals(isImagemangentaScale, true);
+
     }
 
     @Test
@@ -142,9 +141,7 @@ public class ColorDecomposerTest {
             }
         }
 
-        ImageIO.write(resultingImage, "jpg", new File("image.jpg"));
-
-        /*for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (bufferedImage.getRGB(i, j) != resultingImage.getRGB(i, j)) {
                     areImagesIdentical = false;
@@ -152,6 +149,6 @@ public class ColorDecomposerTest {
                 }
             }
         }
-        assertEquals(areImagesIdentical, true);*/
+        assertEquals(areImagesIdentical, true);
     }
 }

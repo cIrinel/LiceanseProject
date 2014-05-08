@@ -51,9 +51,6 @@ public class FloydSteinbergDithererTest {
                     isImageBinary = false;
                 }
             }
-            if(isImageBinary){
-                ImageIO.write(binaryImage , "jpg" , new File(""));
-            }
         }
 
 
@@ -152,7 +149,6 @@ public class FloydSteinbergDithererTest {
             }
         }
 
-        ImageIO.write(resultingImage, "jpg", new File("ditheredImage.jpg"));
 
     }
 }
