@@ -1,4 +1,4 @@
-package com.irinel.craiu.liceanse.shareGeneration;
+package com.irinel.craiu.liceanse.imageutils;
 
 
 import java.awt.image.BufferedImage;
