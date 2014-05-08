@@ -5,31 +5,31 @@ import java.awt.image.BufferedImage;
 
 public class DecomposedCMYImage {
 
-    private BufferedImage cyanScaleImage;
-    private BufferedImage mangentaScaleImage;
-    private BufferedImage yellowScaleImage;
+    private BufferedImage cyanImage;
+    private BufferedImage mangentaImage;
+    private BufferedImage yellowImage;
 
-    public BufferedImage getCyanScaleImage() {
-        return cyanScaleImage;
+    public BufferedImage getCyanImage() {
+        return cyanImage;
     }
 
-    public void setCyanScaleImage(BufferedImage cyanScaleImage) {
-        this.cyanScaleImage = cyanScaleImage;
+    public void setCyanImage(BufferedImage cyanImage) {
+        this.cyanImage = cyanImage;
     }
 
-    public BufferedImage getMangentaScaleImage() {
-        return mangentaScaleImage;
+    public BufferedImage getMangentaImage() {
+        return mangentaImage;
     }
 
-    public void setMangentaScaleImage(BufferedImage mangentaScaleImage) {
-        this.mangentaScaleImage = mangentaScaleImage;
+    public void setMangentaImage(BufferedImage mangentaImage) {
+        this.mangentaImage = mangentaImage;
     }
 
-    public BufferedImage getYellowScaleImage() {
-        return yellowScaleImage;
+    public BufferedImage getYellowImage() {
+        return yellowImage;
     }
 
-    public void setYellowScaleImage(BufferedImage yellowScaleImage) {
-        this.yellowScaleImage = yellowScaleImage;
+    public void setYellowImage(BufferedImage yellowImage) {
+        this.yellowImage = yellowImage;
     }
 }

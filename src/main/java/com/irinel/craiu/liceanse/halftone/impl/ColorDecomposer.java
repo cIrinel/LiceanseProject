@@ -41,9 +41,9 @@ public class ColorDecomposer {
             }
         }
 
-        decomposedImage.setCyanScaleImage(cyanScaleImage);
-        decomposedImage.setMangentaScaleImage(mangentaScaleImage);
-        decomposedImage.setYellowScaleImage(yellowScaleImage);
+        decomposedImage.setCyanImage(cyanScaleImage);
+        decomposedImage.setMangentaImage(mangentaScaleImage);
+        decomposedImage.setYellowImage(yellowScaleImage);
 
         return decomposedImage;
     }

@@ -36,23 +36,23 @@ public class ColorDecomposerTest {
 
     @Test
     public void imageDecomposesToRedScale() throws Exception {
-        assertEquals(decomposedImage.getCyanScaleImage() != null, true);
+        assertEquals(decomposedImage.getCyanImage() != null, true);
     }
 
     @Test
     public void imageDecomposesToGreenScale() throws Exception {
-        assertEquals(decomposedImage.getMangentaScaleImage() != null, true);
+        assertEquals(decomposedImage.getMangentaImage() != null, true);
     }
 
     @Test
     public void imageDecomposesToBlueScale() throws Exception {
-        assertEquals(decomposedImage.getMangentaScaleImage() != null, true);
+        assertEquals(decomposedImage.getMangentaImage() != null, true);
 
     }
 
     @Test
     public void imageIsYellowColorScale() throws IOException {
-        BufferedImage yellowScaleImage = decomposedImage.getYellowScaleImage();
+        BufferedImage yellowScaleImage = decomposedImage.getYellowImage();
         boolean isImageYellowScale = true;
         for (int i = 0; i < yellowScaleImage.getWidth(); i++) {
             for (int j = 0; j < yellowScaleImage.getHeight(); j++) {
@@ -69,7 +69,7 @@ public class ColorDecomposerTest {
 
     @Test
     public void imageIsMangentaColorScale() throws IOException {
-        BufferedImage mangentaScaleImage = decomposedImage.getMangentaScaleImage();
+        BufferedImage mangentaScaleImage = decomposedImage.getMangentaImage();
         boolean isImagemangentaScale = true;
         for (int i = 0; i < mangentaScaleImage.getWidth(); i++) {
             for (int j = 0; j < mangentaScaleImage.getHeight(); j++) {
@@ -85,7 +85,7 @@ public class ColorDecomposerTest {
 
     @Test
     public void imageIsCyanColorScale() throws IOException {
-        BufferedImage cyanScaleImage = decomposedImage.getCyanScaleImage();
+        BufferedImage cyanScaleImage = decomposedImage.getCyanImage();
         boolean isImagecyanScale = true;
         for (int i = 0; i < cyanScaleImage.getWidth(); i++) {
             for (int j = 0; j < cyanScaleImage.getHeight(); j++) {
@@ -120,9 +120,9 @@ public class ColorDecomposerTest {
     @Test
     public void testRemakeImage() throws IOException {
 
-        BufferedImage cyanScale = decomposedImage.getCyanScaleImage();
-        BufferedImage yellowScale = decomposedImage.getYellowScaleImage();
-        BufferedImage mangentaScale = decomposedImage.getMangentaScaleImage();
+        BufferedImage cyanScale = decomposedImage.getCyanImage();
+        BufferedImage yellowScale = decomposedImage.getYellowImage();
+        BufferedImage mangentaScale = decomposedImage.getMangentaImage();
 
 
         int width = cyanScale.getWidth();
