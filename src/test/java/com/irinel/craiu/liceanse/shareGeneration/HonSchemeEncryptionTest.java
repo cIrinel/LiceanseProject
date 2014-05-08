@@ -1,17 +1,21 @@
 package com.irinel.craiu.liceanse.shareGeneration;
 
 import com.irinel.craiu.liceanse.imageutils.ExpandedPixel;
+import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 
 public class HonSchemeEncryptionTest {
 
     private HonSchemeEncryption honSchemeEncryption;
-    public static final String MANGENTA_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
-    public static final String CYAN_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
-    public static final String YELLOW_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
+    private static final String MANGENTA_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
+    private static final String CYAN_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
+    private static final String YELLOW_HALFTONED_IMAGE = "halftonedImages/mangentaHalftoned.jpg";
+    private int pixel;
 
 
     @Before
@@ -22,15 +26,15 @@ public class HonSchemeEncryptionTest {
 
     @Test
     public void testPixelExpands() {
-        int pixel = 2;
-        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, 0);
+        pixel = PixelConverter.getIntColorFromRGB(0, 0, 255);
+        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, PixelConverter.BLUE_CHANNEL);
         Assert.assertEquals(expandedPixel != null, true);
     }
 
     @Test
     public void testsecondSharePixelExpandsCorrectly() {
-        int pixel = 2;
-        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, 0);
+        int pixel = PixelConverter.getIntColorFromRGB(255, 255, 0);
+        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, PixelConverter.BLUE_CHANNEL);
         int[][] firstExpandedPixel = expandedPixel.getFirstShareExpandedPixel();
 
         Assert.assertEquals(firstExpandedPixel[0][0], firstExpandedPixel[1][1]);
@@ -41,8 +45,8 @@ public class HonSchemeEncryptionTest {
 
     @Test
     public void testSecondSharePixelExpandsCorrectly() {
-        int pixel = 2;
-        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, 0);
+        int pixel = PixelConverter.getIntColorFromRGB(255, 255, 0);
+        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, PixelConverter.BLUE_CHANNEL);
         int[][] secondExpandedPixel = expandedPixel.getSecondShareExpandedPixel();
 
         Assert.assertEquals(secondExpandedPixel[0][0], secondExpandedPixel[1][1]);
@@ -50,4 +54,19 @@ public class HonSchemeEncryptionTest {
         Assert.assertNotSame(secondExpandedPixel[0][0], secondExpandedPixel[0][1]);
         Assert.assertNotSame(secondExpandedPixel[0][1], secondExpandedPixel[1][1]);
     }
+
+    @Test
+    public void testWhitePixelExpandsCorrectly() {
+        int pixel = PixelConverter.getIntColorFromRGB(255, 255, 255);
+        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, PixelConverter.BLUE_CHANNEL);
+        Assert.assertTrue(expandedPixel.getFirstShareExpandedPixel() == expandedPixel.getSecondShareExpandedPixel());
+    }
+
+    @Test
+    public void testColorPixelExpandsCorrectly() {
+        int pixel = PixelConverter.getIntColorFromRGB(255, 255, 0);
+        ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixel(pixel, PixelConverter.BLUE_CHANNEL);
+        Assert.assertTrue(expandedPixel.getFirstShareExpandedPixel() != expandedPixel.getSecondShareExpandedPixel());
+    }
+
 }
