@@ -1,6 +1,7 @@
 package com.irinel.craiu.liceanse.halftone.impl;
 
 import com.google.common.io.Resources;
+import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -119,9 +120,9 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetColorOfChannelFromInt() {
         int pixel = new Color(129, 122, 128).getRGB();
-        int red = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.RED_CHANNEL);
-        int blue = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.BLUE_CHANNEL);
-        int green = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.GREEN_CHANNEL);
+        int red = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.RED_CHANNEL);
+        int blue = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.BLUE_CHANNEL);
+        int green = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.GREEN_CHANNEL);
 
         Assert.assertEquals(red, 129);
         Assert.assertEquals(green, 122);
@@ -144,14 +145,14 @@ public class FloydSteinbergDithererTest {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                resultingImage.setRGB(i, j, colorDecomposer.getIntColorFromRGB(
-                        255 - ditherer.getChanellColorFromInt(cyanHalftone.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(yellowHalftone.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
+                resultingImage.setRGB(i, j, PixelConverter.getIntColorFromRGB(
+                        255 - PixelConverter.getChanellColorFromInt(cyanHalftone.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(yellowHalftone.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
                 ));
             }
         }
-      //  ImageIO.write(resultingImage, "jpg", new File("recomposedDitheredImage.jpg"));
+        //  ImageIO.write(resultingImage, "jpg", new File("recomposedDitheredImage.jpg"));
 
     }
 }

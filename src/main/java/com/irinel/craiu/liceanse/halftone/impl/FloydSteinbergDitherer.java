@@ -1,5 +1,6 @@
 package com.irinel.craiu.liceanse.halftone.impl;
 
+import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class FloydSteinbergDitherer{
         for (int i = 0; i   < width; i++) {
             for (int j = 0; j < height; j++) {
                 int oldPixel = image.getRGB(i, j);
-                int newPixel = getRgbIntFromColor(getRoundedColorValue(oldPixel, colorChannel), colorChannel);
+                int newPixel = PixelConverter.getRgbIntFromColor(getRoundedColorValue(oldPixel, colorChannel), colorChannel);
 
                 int quantizedError = getQuantizationError(oldPixel, newPixel, colorChannel);
 
@@ -48,7 +49,7 @@ public class FloydSteinbergDitherer{
     }
 
     public int getRoundedColorValue(int pixel, int colorChannel) {
-        int color = getChanellColorFromInt(pixel, colorChannel);
+        int color = PixelConverter.getChanellColorFromInt(pixel, colorChannel);
         if (color < 128) {
             return 0;
         }
@@ -56,31 +57,21 @@ public class FloydSteinbergDitherer{
     }
 
 
-    public int getChanellColorFromInt(int pixel, int colorChannel) {
-        return pixel >> colorChannel & 0xff;
-    }
 
-    public int getRgbIntFromColor(int pixel, int colorChannel) {
-        if (colorChannel == ColorDecomposer.RED_CHANNEL)
-            return new ColorDecomposer().getIntColorFromRGB(pixel, 255, 255);
-        if (colorChannel == ColorDecomposer.GREEN_CHANNEL)
-            return new ColorDecomposer().getIntColorFromRGB(255, pixel, 255);
-        if (colorChannel == ColorDecomposer.BLUE_CHANNEL)
-            return new ColorDecomposer().getIntColorFromRGB(255, 255, pixel);
-        LOG.error(String.format("%s is not a valid color channel!", colorChannel));
-        return 0;
-    }
+
+
 
     public int getQuantizationError(int oldPixel, int newPixel, int colorChannel) {
-        return getChanellColorFromInt(oldPixel, colorChannel) - getChanellColorFromInt(newPixel, colorChannel);
+        return PixelConverter.getChanellColorFromInt(oldPixel, colorChannel) -
+                PixelConverter.getChanellColorFromInt(newPixel, colorChannel);
     }
 
     public int getDitheredPixel(int pixel, int error, double modifier, int colorChannel) {
-        int ditheredColor = getChanellColorFromInt(pixel, colorChannel) + (int) (error * modifier);
+        int ditheredColor = PixelConverter.getChanellColorFromInt(pixel, colorChannel) + (int) (error * modifier);
         if (ditheredColor > 255) ditheredColor = 255;
         if (ditheredColor < 0) ditheredColor = 0;
 
-        return getRgbIntFromColor(ditheredColor, colorChannel);
+        return PixelConverter.getRgbIntFromColor(ditheredColor, colorChannel);
     }
 
 
