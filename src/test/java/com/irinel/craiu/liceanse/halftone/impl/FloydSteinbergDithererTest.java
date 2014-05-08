@@ -4,6 +4,8 @@ import com.google.common.io.Resources;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,12 +14,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
 public class FloydSteinbergDithererTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(FloydSteinbergDithererTest.class);
     FloydSteinbergDitherer ditherer;
     private static final String CYAN_SCALE_IMAGE = "colorScaleImages/cyanScale.jpg";
     private static final String MANGENTA_SCALE_IMAGE = "colorScaleImages/mangentaScale.jpg";
@@ -129,7 +131,8 @@ public class FloydSteinbergDithererTest {
 
     @Test
     public void testRemakeImage() throws IOException {
-        //this is a visual test.
+
+        logger.info("Recomposing a dithered image is a visual test only");
         BufferedImage cyanHalftone = ImageIO.read(Resources.getResource("halftonedImages/cyanHalftoned.jpg"));
         BufferedImage yellowHalftone = ImageIO.read(Resources.getResource("halftonedImages/yellowHalftoned.jpg"));
         BufferedImage mangentaHalftone = ImageIO.read(Resources.getResource("halftonedImages/mangentaHalftoned.jpg"));
@@ -148,7 +151,7 @@ public class FloydSteinbergDithererTest {
                 ));
             }
         }
-
+      //  ImageIO.write(resultingImage, "jpg", new File("recomposedDitheredImage.jpg"));
 
     }
 }
