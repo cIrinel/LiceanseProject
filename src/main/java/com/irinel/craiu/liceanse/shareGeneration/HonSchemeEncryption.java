@@ -15,6 +15,14 @@ public class HonSchemeEncryption {
     Logger LOG = LoggerFactory.getLogger(HonSchemeEncryption.class);
 
     public EncryptedImage getEncryptedImage(DecomposedCMYImage decomposedImage) {
+        int width = decomposedImage.getCyanImage().getWidth();
+        int height = decomposedImage.getCyanImage().getHeight();
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+
+            }
+        }
 
         return new EncryptedImage();
     }
