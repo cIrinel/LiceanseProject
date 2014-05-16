@@ -57,7 +57,7 @@ public class HonSchemeEncryptionTest {
         Assert.assertNotSame(secondExpandedPixel[0][1], secondExpandedPixel[1][1]);
     }
 
-    @Test
+
     public void testWhitePixelExpandsCorrectly() {
         int pixel = PixelConverter.getIntColorFromRGB(255, 255, 255);
         ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixelByChannel(pixel, PixelConverter.BLUE_CHANNEL);
@@ -91,9 +91,9 @@ public class HonSchemeEncryptionTest {
         decomposedCMYImage.setMangentaImage(ImageIO.read(Resources.getResource(MANGENTA_HALFTONED_IMAGE)));
         decomposedCMYImage.setYellowImage(ImageIO.read(Resources.getResource(YELLOW_HALFTONED_IMAGE)));
 
-      //  EncryptedImage encryptedImage = honSchemeEncryption.getEncryptedImage(decomposedCMYImage);
-     //   ImageIO.write(encryptedImage.getFirstShare(), "jpg", new File("firstShare.jpg"));
-     //   ImageIO.write(encryptedImage.getSecondShare(), "jpg", new File("secondShare.jpg"));
+        //  EncryptedImage encryptedImage = honSchemeEncryption.getEncryptedImage(decomposedCMYImage);
+        //   ImageIO.write(encryptedImage.getFirstShare(), "jpg", new File("firstShare.jpg"));
+        //   ImageIO.write(encryptedImage.getSecondShare(), "jpg", new File("secondShare.jpg"));
     }
 
 
