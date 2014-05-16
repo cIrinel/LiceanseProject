@@ -7,6 +7,9 @@
 *.jar
 *.war
 *.ear
+*.jpg
+*.png
+*.gif
 target/*
 .idea/*
 .idea/copyright/profiles_settings.xml

@@ -41,16 +41,16 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetCyanDitheredImage() throws Exception {
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(CYAN_SCALE_IMAGE)),
-                ColorDecomposer.RED_CHANNEL);
+                PixelConverter.RED_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
             }
@@ -63,16 +63,16 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetMangentaDitheredImage() throws Exception {
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(MANGENTA_SCALE_IMAGE)),
-                ColorDecomposer.GREEN_CHANNEL);
+                PixelConverter.GREEN_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
             }
@@ -86,16 +86,16 @@ public class FloydSteinbergDithererTest {
     public void testGetYellowDitheredImage() throws Exception {
 
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(YELLOW_SCALE_IMAGE)),
-                ColorDecomposer.BLUE_CHANNEL);
+                PixelConverter.BLUE_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
             }
@@ -108,9 +108,9 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetRountColorValue() throws Exception {
         int pixel = new Color(129, 122, 128).getRGB();
-        int red = ditherer.getRoundedColorValue(pixel, ColorDecomposer.RED_CHANNEL);
-        int blue = ditherer.getRoundedColorValue(pixel, ColorDecomposer.BLUE_CHANNEL);
-        int green = ditherer.getRoundedColorValue(pixel, ColorDecomposer.GREEN_CHANNEL);
+        int red = ditherer.getRoundedColorValue(pixel, PixelConverter.RED_CHANNEL);
+        int blue = ditherer.getRoundedColorValue(pixel, PixelConverter.BLUE_CHANNEL);
+        int green = ditherer.getRoundedColorValue(pixel, PixelConverter.GREEN_CHANNEL);
 
         Assert.assertEquals(red, EXPECTED_ROUND_UP_COLOR_VALUE);
         Assert.assertEquals(green, EXPECTED_ROUND_DOWN_COLOR_VALUE);
@@ -120,9 +120,9 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetColorOfChannelFromInt() {
         int pixel = new Color(129, 122, 128).getRGB();
-        int red = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.RED_CHANNEL);
-        int blue = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.BLUE_CHANNEL);
-        int green = PixelConverter.getChanellColorFromInt(pixel, ColorDecomposer.GREEN_CHANNEL);
+        int red = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.RED_CHANNEL);
+        int blue = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.BLUE_CHANNEL);
+        int green = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.GREEN_CHANNEL);
 
         Assert.assertEquals(red, 129);
         Assert.assertEquals(green, 122);
@@ -146,9 +146,9 @@ public class FloydSteinbergDithererTest {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 resultingImage.setRGB(i, j, PixelConverter.getIntColorFromRGB(
-                        255 - PixelConverter.getChanellColorFromInt(cyanHalftone.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
-                        255 - PixelConverter.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
-                        255 - PixelConverter.getChanellColorFromInt(yellowHalftone.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
+                        255 - PixelConverter.getChanellColorFromInt(cyanHalftone.getRGB(i, j), PixelConverter.RED_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), PixelConverter.GREEN_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(yellowHalftone.getRGB(i, j), PixelConverter.BLUE_CHANNEL)
                 ));
             }
         }

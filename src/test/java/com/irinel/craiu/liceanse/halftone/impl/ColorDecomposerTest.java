@@ -58,8 +58,8 @@ public class ColorDecomposerTest {
         for (int i = 0; i < yellowScaleImage.getWidth(); i++) {
             for (int j = 0; j < yellowScaleImage.getHeight(); j++) {
                 int pixel = yellowScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255) {
                     isImageYellowScale = false;
                 }
             }
@@ -75,8 +75,8 @@ public class ColorDecomposerTest {
         for (int i = 0; i < mangentaScaleImage.getWidth(); i++) {
             for (int j = 0; j < mangentaScaleImage.getHeight(); j++) {
                 int pixel = mangentaScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255) {
                     isImagemangentaScale = false;
                 }
             }
@@ -92,8 +92,8 @@ public class ColorDecomposerTest {
         for (int i = 0; i < cyanScaleImage.getWidth(); i++) {
             for (int j = 0; j < cyanScaleImage.getHeight(); j++) {
                 int pixel = cyanScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255) {
                     isImagecyanScale = false;
                 }
             }

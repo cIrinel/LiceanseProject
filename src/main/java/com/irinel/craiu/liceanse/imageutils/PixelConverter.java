@@ -36,9 +36,9 @@ public class PixelConverter {
     public static int getRgbIntFromColor(int pixel, int colorChannel) {
         if (colorChannel == RED_CHANNEL)
             return getIntColorFromRGB(pixel, 255, 255);
-        if (colorChannel == ColorDecomposer.GREEN_CHANNEL)
+        if (colorChannel == GREEN_CHANNEL)
             return getIntColorFromRGB(255, pixel, 255);
-        if (colorChannel == ColorDecomposer.BLUE_CHANNEL)
+        if (colorChannel == BLUE_CHANNEL)
             return getIntColorFromRGB(255, 255, pixel);
         LOG.error(String.format("%s is not a valid color channel!", colorChannel));
         return 0;
