@@ -84,16 +84,16 @@ public class HonSchemeEncryptionTest {
                 , expandedPixel.getFirstShareExpandedPixel()[1][0]);
     }
 
-    @Test
+
     public void testGetEncryptedImage() throws IOException {
         DecomposedCMYImage decomposedCMYImage = new DecomposedCMYImage();
         decomposedCMYImage.setCyanImage(ImageIO.read(Resources.getResource(CYAN_HALFTONED_IMAGE)));
         decomposedCMYImage.setMangentaImage(ImageIO.read(Resources.getResource(MANGENTA_HALFTONED_IMAGE)));
         decomposedCMYImage.setYellowImage(ImageIO.read(Resources.getResource(YELLOW_HALFTONED_IMAGE)));
 
-        EncryptedImage encryptedImage = honSchemeEncryption.getEncryptedImage(decomposedCMYImage);
-        ImageIO.write(encryptedImage.getFirstShare(), "jpg", new File("firstShare.jpg"));
-        ImageIO.write(encryptedImage.getSecondShare(), "jpg", new File("secondShare.jpg"));
+      //  EncryptedImage encryptedImage = honSchemeEncryption.getEncryptedImage(decomposedCMYImage);
+     //   ImageIO.write(encryptedImage.getFirstShare(), "jpg", new File("firstShare.jpg"));
+     //   ImageIO.write(encryptedImage.getSecondShare(), "jpg", new File("secondShare.jpg"));
     }
 
 
