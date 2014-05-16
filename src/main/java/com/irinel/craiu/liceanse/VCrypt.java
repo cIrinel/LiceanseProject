@@ -28,7 +28,7 @@ public class VCrypt {
         honSchemeEncryption = new HonSchemeEncryption();
     }
 
-    public void encryptImage(BufferedImage bufferedImage) throws IOException {
+    public EncryptedImage encryptImage(BufferedImage bufferedImage) throws IOException {
 
         LOG.info("Starting encyption process", VCrypt.class);
         LOG.info("Decomposing image to cmy components", VCrypt.class);
@@ -49,9 +49,8 @@ public class VCrypt {
         LOG.info("Starting encryption", VCrypt.class);
         EncryptedImage encryptedImage = honSchemeEncryption.getEncryptedImage(ditheredCMYImage);
         LOG.info("Generated shares for image", VCrypt.class);
+               return encryptedImage;
 
-        ImageIO.write(encryptedImage.getFirstShare(), "gif", new File("firstShare.gif"));
-        ImageIO.write(encryptedImage.getSecondShare(), "gif", new File("secondShare.gif"));
 
     }
 }

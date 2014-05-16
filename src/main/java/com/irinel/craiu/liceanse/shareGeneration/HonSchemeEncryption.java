@@ -56,7 +56,6 @@ public class HonSchemeEncryption {
         return encryptedImage;
     }
 
-
     public ExpandedPixel getExpandedPixel(int cyanPixel, int mangentaPixel, int yellowPixel) {
         ExpandedPixel redChannelExpandedPixel;
         ExpandedPixel blueChannelExpandedPixel;
@@ -92,19 +91,18 @@ public class HonSchemeEncryption {
     }
 
     //TODO:ExpandedPixel may need refactored. all the program uses rgb values for the representation of pixel this class uses the channel color values...INCONSISTENCY!!!
-
+    //TODO: method also randomises block arangement. rename or split
     public ExpandedPixel getExpandedPixelByChannel(int pixel, int colorChannel) {
         ExpandedPixel expandedPixel = new ExpandedPixel();
         int color = PixelConverter.getChanellColorFromInt(pixel, colorChannel);
         int[][] expandedPixelAux = new int[2][2];
 
-
-        expandedPixelAux[0][0] = 0;
-        expandedPixelAux[0][1] = 255;
-        expandedPixelAux[1][0] = 255;
-        expandedPixelAux[1][1] = 0;
-       // System.out.println(color+"-"+colorChannel);
-        if (color == 0) {
+        expandedPixelAux[0][0] = 255;
+        expandedPixelAux[0][1] = 0;
+        expandedPixelAux[1][0] = 0;
+        expandedPixelAux[1][1] = 255;
+        // System.out.println(color+"-"+colorChannel);
+        if (color == 255) {
             if (getRandomDecision()) {
                 expandedPixel.setFirstShareExpandedPixel(expandedPixelAux);
                 expandedPixel.setSecondShareExpandedPixel(getReversedPixel());
@@ -113,7 +111,7 @@ public class HonSchemeEncryption {
                 expandedPixel.setSecondShareExpandedPixel(expandedPixelAux);
             }
 
-        } else if (color == 255) {
+        } else if (color == 0) {
             if (getRandomDecision()) {
                 expandedPixel.setFirstShareExpandedPixel(expandedPixelAux);
                 expandedPixel.setSecondShareExpandedPixel(expandedPixelAux);
@@ -130,13 +128,12 @@ public class HonSchemeEncryption {
         return expandedPixel;
     }
 
-
     public boolean getRandomDecision() {
         return (Math.random() < 0.5) ? false : true;
     }
 
     public int[][] getReversedPixel() {
-        int[][] reversedPixel = {{255, 0}, {0, 255}};
+        int[][] reversedPixel = {{0, 255}, {255, 0}};
         return reversedPixel;
     }
 
