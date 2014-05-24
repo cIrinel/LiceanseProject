@@ -25,6 +25,6 @@ public class HonSchemeDecryptionTest {
         BufferedImage share1 = ImageIO.read(Resources.getResource(SHARE_1_FILE_NAME));
         BufferedImage share2 = ImageIO.read(Resources.getResource(SHARE_2_FILE_NAME));
         BufferedImage bufferedImage = honSchemeDecryption.decryptImages(share1, share2);
-        ImageIO.write(bufferedImage,"gif",new File("decryptedFile.gif"));
+        ImageIO.write(bufferedImage, "gif", new File("decryptedTextImage.gif"));
     }
 }

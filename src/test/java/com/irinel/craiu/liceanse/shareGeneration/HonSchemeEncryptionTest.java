@@ -57,7 +57,7 @@ public class HonSchemeEncryptionTest {
         Assert.assertNotSame(secondExpandedPixel[0][1], secondExpandedPixel[1][1]);
     }
 
-
+    //Not a test because getExpandedPixelByChannel outputs randomly
     public void testWhitePixelExpandsCorrectly() {
         int pixel = PixelConverter.getIntColorFromRGB(255, 255, 255);
         ExpandedPixel expandedPixel = honSchemeEncryption.getExpandedPixelByChannel(pixel, PixelConverter.BLUE_CHANNEL);
