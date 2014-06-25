@@ -1,13 +1,11 @@
 package com.irinel.craiu.liceanse.authenticationSupport;
 
 
-import com.irinel.craiu.liceanse.halftone.impl.ColorDecomposer;
 import com.irinel.craiu.liceanse.imageutils.DitheredImageDifference;
 import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.plaf.synth.ColorType;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 
@@ -26,10 +24,10 @@ public class ImageRecomposerSupport {
 
         int imageHeight = ditheredImage.getHeight();
         int imageWidth = ditheredImage.getWidth();
-        int[][] differences = new int[imageHeight][imageWidth];
+        int[][] differences = new int[imageWidth][imageHeight];
 
-        for (int i = 0; i < imageHeight; i++) {
-            for (int j = 0; j < imageWidth; j++) {
+        for (int i = 0; i < imageWidth; i++) {
+            for (int j = 0; j < imageHeight; j++) {
                 int originalImagePixel = PixelConverter.getChanellColorFromInt(originalImage.getRGB(i, j), colorChannel);
                 int ditheredImagePixel = PixelConverter.getChanellColorFromInt(ditheredImage.getRGB(i, j), colorChannel);
                 differences[i][j] = originalImagePixel - ditheredImagePixel;
@@ -39,7 +37,20 @@ public class ImageRecomposerSupport {
         return differences;
     }
 
+    public DitheredImageDifference getDitheredImageDifferences(BufferedImage originalImage, BufferedImage ditheredImage) {
+        return new DitheredImageDifference(
+                getDifferencesByColorChannel(originalImage, ditheredImage, PixelConverter.RED_CHANNEL),
+                getDifferencesByColorChannel(originalImage, ditheredImage, PixelConverter.GREEN_CHANNEL),
+                getDifferencesByColorChannel(originalImage, ditheredImage, PixelConverter.BLUE_CHANNEL)
+        );
+    }
+
     public BufferedImage getRecomposedDitheredImage(BufferedImage ditheredImage, DitheredImageDifference difference) {
+
+        checkNotNull(ditheredImage, "dithered image is null");
+        checkNotNull(difference, "differences matrices are null");
+        LOGGER.info("Starting to recompose dithered image using all color channels");
+
         int imageHeight = ditheredImage.getHeight();
         int imageWidth = ditheredImage.getWidth();
         int[][] redScaleDifference = difference.getRedScaleDifferences();
@@ -48,8 +59,8 @@ public class ImageRecomposerSupport {
 
         BufferedImage recomposedImage = new BufferedImage(imageWidth, imageHeight, ColorSpace.TYPE_RGB);
 
-        for (int i = 0; i < imageHeight; i++) {
-            for (int j = 0; j < imageWidth; j++) {
+        for (int i = 0; i < imageWidth; i++) {
+            for (int j = 0; j < imageHeight; j++) {
 
 
                 int recomposedRedPixel =
@@ -63,10 +74,31 @@ public class ImageRecomposerSupport {
                                 greenScaleDifference[i][j];
 
                 int recomposedPixel =
-                        PixelConverter.getIntColorFromRGB(recomposedRedPixel, recomposedBluePixel, recomposedGreenPixel);
+                        PixelConverter.getIntColorFromRGB(recomposedRedPixel, recomposedGreenPixel, recomposedBluePixel);
                 recomposedImage.setRGB(i, j, recomposedPixel);
             }
         }
         return ditheredImage;
+    }
+
+    public BufferedImage getRecomposedDitheredImageByColorChannel(
+            BufferedImage ditheredImage, int[][] colorChDifference, int colorChannel) {
+        int imageHeight = ditheredImage.getHeight();
+        int imageWidth = ditheredImage.getWidth();
+
+        BufferedImage recomposedImage = new BufferedImage(imageWidth, imageHeight, ColorSpace.TYPE_RGB);
+
+        for (int i = 0; i < imageWidth; i++) {
+            for (int j = 0; j < imageHeight; j++) {
+                //System.out.println(PixelConverter.getChanellColorFromInt(ditheredImage.getRGB(i, j), colorChannel));
+                int recomposedPixel =
+                        PixelConverter.getChanellColorFromInt(ditheredImage.getRGB(i, j), colorChannel) +
+                                colorChDifference[i][j];
+                //System.out.println(recomposedPixel + ":" + colorChDifference[i][j]);
+                recomposedPixel = PixelConverter.getRgbIntFromColor(recomposedPixel, colorChannel);
+                recomposedImage.setRGB(i, j, recomposedPixel);
+            }
+        }
+        return recomposedImage;
     }
 }

@@ -1,6 +1,8 @@
 package com.irinel.craiu.liceanse.imageutils;
 
 
+import java.util.Arrays;
+
 public class DitheredImageDifference {
     int[][] redScaleDifferences;
     int[][] greenScaleDifferences;
@@ -11,6 +13,8 @@ public class DitheredImageDifference {
         this.greenScaleDifferences = greenScaleDifferences;
         this.blueScaleDifferences = blueScaleDifferences;
     }
+
+
 
     public int[][] getRedScaleDifferences() {
         return redScaleDifferences;
@@ -35,4 +39,14 @@ public class DitheredImageDifference {
     public void setBlueScaleDifferences(int[][] blueScaleDifferences) {
         this.blueScaleDifferences = blueScaleDifferences;
     }
+
+    @Override
+    public String toString() {
+        return "DitheredImageDifference{" +
+                "redScaleDifferences=" + Arrays.toString(redScaleDifferences) +
+                ", greenScaleDifferences=" + Arrays.toString(greenScaleDifferences) +
+                ", blueScaleDifferences=" + Arrays.toString(blueScaleDifferences) +
+                '}';
+    }
+
 }

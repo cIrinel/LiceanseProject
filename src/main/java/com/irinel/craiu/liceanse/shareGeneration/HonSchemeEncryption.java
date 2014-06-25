@@ -101,7 +101,6 @@ public class HonSchemeEncryption {
         expandedPixelAux[0][1] = 0;
         expandedPixelAux[1][0] = 0;
         expandedPixelAux[1][1] = 255;
-        // System.out.println(color+"-"+colorChannel);
         if (color == 255) {
             if (getRandomDecision()) {
                 expandedPixel.setFirstShareExpandedPixel(expandedPixelAux);
