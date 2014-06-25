@@ -2,6 +2,7 @@ package com.irinel.craiu.liceanse.halftone.impl;
 
 import com.google.common.io.Resources;
 import com.irinel.craiu.liceanse.imageutils.DecomposedCMYImage;
+import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import com.irinel.craiu.liceanse.imageutils.RgbColor;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,29 +37,29 @@ public class ColorDecomposerTest {
 
     @Test
     public void imageDecomposesToRedScale() throws Exception {
-        assertEquals(decomposedImage.getCyanScaleImage() != null, true);
+        assertEquals(decomposedImage.getCyanImage() != null, true);
     }
 
     @Test
     public void imageDecomposesToGreenScale() throws Exception {
-        assertEquals(decomposedImage.getMangentaScaleImage() != null, true);
+        assertEquals(decomposedImage.getMangentaImage() != null, true);
     }
 
     @Test
     public void imageDecomposesToBlueScale() throws Exception {
-        assertEquals(decomposedImage.getMangentaScaleImage() != null, true);
+        assertEquals(decomposedImage.getMangentaImage() != null, true);
 
     }
 
     @Test
     public void imageIsYellowColorScale() throws IOException {
-        BufferedImage yellowScaleImage = decomposedImage.getYellowScaleImage();
+        BufferedImage yellowScaleImage = decomposedImage.getYellowImage();
         boolean isImageYellowScale = true;
         for (int i = 0; i < yellowScaleImage.getWidth(); i++) {
             for (int j = 0; j < yellowScaleImage.getHeight(); j++) {
                 int pixel = yellowScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255) {
                     isImageYellowScale = false;
                 }
             }
@@ -69,30 +70,30 @@ public class ColorDecomposerTest {
 
     @Test
     public void imageIsMangentaColorScale() throws IOException {
-        BufferedImage mangentaScaleImage = decomposedImage.getMangentaScaleImage();
+        BufferedImage mangentaScaleImage = decomposedImage.getMangentaImage();
         boolean isImagemangentaScale = true;
         for (int i = 0; i < mangentaScaleImage.getWidth(); i++) {
             for (int j = 0; j < mangentaScaleImage.getHeight(); j++) {
                 int pixel = mangentaScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255) {
                     isImagemangentaScale = false;
                 }
             }
         }
-        ImageIO.write(mangentaScaleImage , "jpg" , new File("textMangentaScale.jpg"));
         assertEquals(isImagemangentaScale, true);
+
     }
 
     @Test
     public void imageIsCyanColorScale() throws IOException {
-        BufferedImage cyanScaleImage = decomposedImage.getCyanScaleImage();
+        BufferedImage cyanScaleImage = decomposedImage.getCyanImage();
         boolean isImagecyanScale = true;
         for (int i = 0; i < cyanScaleImage.getWidth(); i++) {
             for (int j = 0; j < cyanScaleImage.getHeight(); j++) {
                 int pixel = cyanScaleImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 ||
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255) {
+                if (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 ||
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255) {
                     isImagecyanScale = false;
                 }
             }
@@ -104,7 +105,7 @@ public class ColorDecomposerTest {
     @Test
     public void testGetRgbColorFromInt() {
         Color color = new Color(100, 121, 232);
-        RgbColor rgbColor = colorDecomposer.getRGBColorFromInt(color.getRGB());
+        RgbColor rgbColor = PixelConverter.getRGBColorFromInt(color.getRGB());
         assertEquals(rgbColor.getBlue(), 232);
         assertEquals(rgbColor.getRed(), 100);
         assertEquals(rgbColor.getGreen(), 121);
@@ -112,18 +113,18 @@ public class ColorDecomposerTest {
 
     @Test
     public void testGetWhiteIntColorFromInt() {
-        int whiteColor = colorDecomposer.getIntColorFromRGB(120, 150, 25);
-        assertEquals(25, colorDecomposer.getRGBColorFromInt(whiteColor).getBlue());
-        assertEquals(120, colorDecomposer.getRGBColorFromInt(whiteColor).getRed());
-        assertEquals(150, colorDecomposer.getRGBColorFromInt(whiteColor).getGreen());
+        int whiteColor = PixelConverter.getIntColorFromRGB(120, 150, 25);
+        assertEquals(25, PixelConverter.getRGBColorFromInt(whiteColor).getBlue());
+        assertEquals(120, PixelConverter.getRGBColorFromInt(whiteColor).getRed());
+        assertEquals(150, PixelConverter.getRGBColorFromInt(whiteColor).getGreen());
     }
 
     @Test
     public void testRemakeImage() throws IOException {
 
-        BufferedImage cyanScale = decomposedImage.getCyanScaleImage();
-        BufferedImage yellowScale = decomposedImage.getYellowScaleImage();
-        BufferedImage mangentaScale = decomposedImage.getMangentaScaleImage();
+        BufferedImage cyanScale = decomposedImage.getCyanImage();
+        BufferedImage yellowScale = decomposedImage.getYellowImage();
+        BufferedImage mangentaScale = decomposedImage.getMangentaImage();
 
 
         int width = cyanScale.getWidth();
@@ -134,17 +135,15 @@ public class ColorDecomposerTest {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                resultingImage.setRGB(i, j, colorDecomposer.getIntColorFromRGB(
-                        255 - ditherer.getChanellColorFromInt(cyanScale.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(mangentaScale.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(yellowScale.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
+                resultingImage.setRGB(i, j, PixelConverter.getIntColorFromRGB(
+                        255 - PixelConverter.getChanellColorFromInt(cyanScale.getRGB(i, j), PixelConverter.RED_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(mangentaScale.getRGB(i, j), PixelConverter.GREEN_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(yellowScale.getRGB(i, j), PixelConverter.BLUE_CHANNEL)
                 ));
             }
         }
 
-        ImageIO.write(resultingImage, "jpg", new File("image.jpg"));
-
-        /*for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (bufferedImage.getRGB(i, j) != resultingImage.getRGB(i, j)) {
                     areImagesIdentical = false;
@@ -152,6 +151,6 @@ public class ColorDecomposerTest {
                 }
             }
         }
-        assertEquals(areImagesIdentical, true);*/
+        assertEquals(areImagesIdentical, true);
     }
 }

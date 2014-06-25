@@ -1,9 +1,12 @@
 package com.irinel.craiu.liceanse.halftone.impl;
 
 import com.google.common.io.Resources;
+import com.irinel.craiu.liceanse.imageutils.PixelConverter;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,12 +15,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
 public class FloydSteinbergDithererTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(FloydSteinbergDithererTest.class);
     FloydSteinbergDitherer ditherer;
     private static final String CYAN_SCALE_IMAGE = "colorScaleImages/cyanScale.jpg";
     private static final String MANGENTA_SCALE_IMAGE = "colorScaleImages/mangentaScale.jpg";
@@ -38,21 +41,18 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetCyanDitheredImage() throws Exception {
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(CYAN_SCALE_IMAGE)),
-                ColorDecomposer.RED_CHANNEL);
+                PixelConverter.RED_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
-            }
-            if(isImageBinary){
-                ImageIO.write(binaryImage , "jpg" , new File(""));
             }
         }
 
@@ -63,16 +63,16 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetMangentaDitheredImage() throws Exception {
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(MANGENTA_SCALE_IMAGE)),
-                ColorDecomposer.GREEN_CHANNEL);
+                PixelConverter.GREEN_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
             }
@@ -86,16 +86,16 @@ public class FloydSteinbergDithererTest {
     public void testGetYellowDitheredImage() throws Exception {
 
         binaryImage = ditherer.getDitheredImage(ImageIO.read(Resources.getResource(YELLOW_SCALE_IMAGE)),
-                ColorDecomposer.BLUE_CHANNEL);
+                PixelConverter.BLUE_CHANNEL);
         boolean isImageBinary = true;
 
         for (int i = 0; i < binaryImage.getWidth(); i++) {
             for (int j = 0; j < binaryImage.getHeight(); j++) {
                 int pixel = binaryImage.getRGB(i, j);
-                if (((pixel >> ColorDecomposer.RED_CHANNEL) & 0xff) != 255 &&
-                        ((pixel >> ColorDecomposer.GREEN_CHANNEL) & 0xff) != 255 &&
-                        (((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 255 ||
-                                ((pixel >> ColorDecomposer.BLUE_CHANNEL) & 0xff) != 0)) {
+                if (((pixel >> PixelConverter.RED_CHANNEL) & 0xff) != 255 &&
+                        ((pixel >> PixelConverter.GREEN_CHANNEL) & 0xff) != 255 &&
+                        (((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 255 ||
+                                ((pixel >> PixelConverter.BLUE_CHANNEL) & 0xff) != 0)) {
                     isImageBinary = false;
                 }
             }
@@ -108,9 +108,9 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetRountColorValue() throws Exception {
         int pixel = new Color(129, 122, 128).getRGB();
-        int red = ditherer.getRoundedColorValue(pixel, ColorDecomposer.RED_CHANNEL);
-        int blue = ditherer.getRoundedColorValue(pixel, ColorDecomposer.BLUE_CHANNEL);
-        int green = ditherer.getRoundedColorValue(pixel, ColorDecomposer.GREEN_CHANNEL);
+        int red = ditherer.getRoundedColorValue(pixel, PixelConverter.RED_CHANNEL);
+        int blue = ditherer.getRoundedColorValue(pixel, PixelConverter.BLUE_CHANNEL);
+        int green = ditherer.getRoundedColorValue(pixel, PixelConverter.GREEN_CHANNEL);
 
         Assert.assertEquals(red, EXPECTED_ROUND_UP_COLOR_VALUE);
         Assert.assertEquals(green, EXPECTED_ROUND_DOWN_COLOR_VALUE);
@@ -120,9 +120,9 @@ public class FloydSteinbergDithererTest {
     @Test
     public void testGetColorOfChannelFromInt() {
         int pixel = new Color(129, 122, 128).getRGB();
-        int red = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.RED_CHANNEL);
-        int blue = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.BLUE_CHANNEL);
-        int green = ditherer.getChanellColorFromInt(pixel, ColorDecomposer.GREEN_CHANNEL);
+        int red = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.RED_CHANNEL);
+        int blue = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.BLUE_CHANNEL);
+        int green = PixelConverter.getChanellColorFromInt(pixel, PixelConverter.GREEN_CHANNEL);
 
         Assert.assertEquals(red, 129);
         Assert.assertEquals(green, 122);
@@ -132,7 +132,8 @@ public class FloydSteinbergDithererTest {
 
     @Test
     public void testRemakeImage() throws IOException {
-        //this is a visual test.
+
+        logger.info("Recomposing a dithered image is a visual test only");
         BufferedImage cyanHalftone = ImageIO.read(Resources.getResource("halftonedImages/cyanHalftoned.jpg"));
         BufferedImage yellowHalftone = ImageIO.read(Resources.getResource("halftonedImages/yellowHalftoned.jpg"));
         BufferedImage mangentaHalftone = ImageIO.read(Resources.getResource("halftonedImages/mangentaHalftoned.jpg"));
@@ -144,15 +145,14 @@ public class FloydSteinbergDithererTest {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                resultingImage.setRGB(i, j, colorDecomposer.getIntColorFromRGB(
-                        255 - ditherer.getChanellColorFromInt(cyanHalftone.getRGB(i, j), ColorDecomposer.RED_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), ColorDecomposer.GREEN_CHANNEL),
-                        255 - ditherer.getChanellColorFromInt(yellowHalftone.getRGB(i, j), ColorDecomposer.BLUE_CHANNEL)
+                resultingImage.setRGB(i, j, PixelConverter.getIntColorFromRGB(
+                        255 - PixelConverter.getChanellColorFromInt(cyanHalftone.getRGB(i, j), PixelConverter.RED_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(mangentaHalftone.getRGB(i, j), PixelConverter.GREEN_CHANNEL),
+                        255 - PixelConverter.getChanellColorFromInt(yellowHalftone.getRGB(i, j), PixelConverter.BLUE_CHANNEL)
                 ));
             }
         }
-
-        ImageIO.write(resultingImage, "jpg", new File("ditheredImage.jpg"));
+        //  ImageIO.write(resultingImage, "jpg", new File("recomposedDitheredImage.jpg"));
 
     }
 }

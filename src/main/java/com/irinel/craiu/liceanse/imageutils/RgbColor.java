@@ -6,6 +6,14 @@ public class RgbColor {
     int green;
     int blue;
 
+    public RgbColor(int red, int green, int blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+    }
+    public RgbColor() {
+    }
+
     public int getRed() {
         return red;
     }
@@ -28,6 +36,28 @@ public class RgbColor {
 
     public void setBlue(int blue) {
         this.blue = blue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RgbColor rgbColor = (RgbColor) o;
+
+        if (blue != rgbColor.blue) return false;
+        if (green != rgbColor.green) return false;
+        if (red != rgbColor.red) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = red;
+        result = 31 * result + green;
+        result = 31 * result + blue;
+        return result;
     }
 
     @Override
