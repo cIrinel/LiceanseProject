@@ -10,8 +10,8 @@
 *.jpg
 *.png
 *.gif
-target/*
-.idea/*
+target/**
+.idea/**
 .idea/copyright/profiles_settings.xml
 .idea/scopes/scope_settings.xml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
