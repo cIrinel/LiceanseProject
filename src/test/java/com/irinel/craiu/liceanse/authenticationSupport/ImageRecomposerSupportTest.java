@@ -9,11 +9,13 @@ import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 public class ImageRecomposerSupportTest {
     private static final String COLOR_SCALE_IMAGE = "colorScaleImages/cyanScale.jpg";
     private static final String DITHERED_IMAGE = "halftonedImages/cyanHalftoned.jpg";
+    private static final String FULL_COLOR_SCALE_IMAGE = "fullDitheredImage.jpg";
     private ImageRecomposerSupport imageRecomposerSupport;
     private BufferedImage originalImage;
     private BufferedImage ditheredImage;
@@ -64,6 +66,29 @@ public class ImageRecomposerSupportTest {
                 Assert.assertEquals(
                         PixelConverter.getChanellColorFromInt(recomposedImage.getRGB(i, j), PixelConverter.RED_CHANNEL),
                         PixelConverter.getChanellColorFromInt(originalImage.getRGB(i, j), PixelConverter.RED_CHANNEL));
+            }
+        }
+
+    }
+
+    @Test
+    public void getRecomposedDitheredImageTest() throws IOException {
+        BufferedImage ditheredImage = ImageIO.read(Resources.getResource(FULL_COLOR_SCALE_IMAGE));
+        DitheredImageDifference difference = imageRecomposerSupport.
+                getDitheredImageDifferences(originalImage, ditheredImage);
+        BufferedImage recomposedImage = imageRecomposerSupport.getRecomposedDitheredImage(ditheredImage, difference);
+
+        for (int i = 0; i < originalImage.getWidth(); i++) {
+            for (int j = 0; j < originalImage.getHeight(); j++) {
+                Assert.assertEquals(
+                        PixelConverter.getChanellColorFromInt(recomposedImage.getRGB(i, j), PixelConverter.RED_CHANNEL),
+                        PixelConverter.getChanellColorFromInt(originalImage.getRGB(i, j), PixelConverter.RED_CHANNEL));
+                Assert.assertEquals(
+                        PixelConverter.getChanellColorFromInt(recomposedImage.getRGB(i,  j), PixelConverter.BLUE_CHANNEL),
+                        PixelConverter.getChanellColorFromInt(originalImage.getRGB(i, j), PixelConverter.BLUE_CHANNEL));
+                Assert.assertEquals(
+                        PixelConverter.getChanellColorFromInt(recomposedImage.getRGB(i, j), PixelConverter.GREEN_CHANNEL),
+                        PixelConverter.getChanellColorFromInt(originalImage.getRGB(i, j), PixelConverter.GREEN_CHANNEL));
             }
         }
 

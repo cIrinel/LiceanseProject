@@ -78,7 +78,7 @@ public class ImageRecomposerSupport {
                 recomposedImage.setRGB(i, j, recomposedPixel);
             }
         }
-        return ditheredImage;
+        return recomposedImage;
     }
 
     public BufferedImage getRecomposedDitheredImageByColorChannel(
@@ -90,11 +90,9 @@ public class ImageRecomposerSupport {
 
         for (int i = 0; i < imageWidth; i++) {
             for (int j = 0; j < imageHeight; j++) {
-                //System.out.println(PixelConverter.getChanellColorFromInt(ditheredImage.getRGB(i, j), colorChannel));
                 int recomposedPixel =
                         PixelConverter.getChanellColorFromInt(ditheredImage.getRGB(i, j), colorChannel) +
                                 colorChDifference[i][j];
-                //System.out.println(recomposedPixel + ":" + colorChDifference[i][j]);
                 recomposedPixel = PixelConverter.getRgbIntFromColor(recomposedPixel, colorChannel);
                 recomposedImage.setRGB(i, j, recomposedPixel);
             }
